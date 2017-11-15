@@ -1,0 +1,20 @@
+<?echo '<pre>'.print_r('djek',true).'</pre>'?>
+
+echo '<pre>'.print_r('djek',true).'</pre>';
+die();
+
+<?if($GLOBALS['USER']->isAdmin()):?>
+
+<?endif;?>
+
+
+<?if($GLOBALS['USER']->GetID() == 6067):?>
+    <?echo '<pre>'.print_r('djek',true).'</pre>'?>
+<?endif;?>
+
+if($GLOBALS['USER']->isAdmin()):
+echo '<pre>'.print_r('djek',true).'</pre>';
+endif;
+
+$logFile = $_SERVER["DOCUMENT_ROOT"] . '/debug.txt';
+fwrite(fopen($logFile , 'a'),date('d.m.Y H:i:s') . ' ' . print_r($values, true) . "\r\n");

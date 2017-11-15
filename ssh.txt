@@ -1,0 +1,91 @@
+// отфильтровать процессы по пользователю
+pgrep -u wialon
+ps aux | grep wialon
+
+pkill -9 -u <user>
+
+# смена пароля 
+sudo passwd user
+# для текущего юзера
+passwd
+# генерация пароля
+openssl rand -base64 32
+
+// запустить скрипт в фоне
+nohup php /var/www/wialon/data/www/wialon.test1.newsite.by/demon.php > /dev/null 2>&1 &
+
+zip -r9 ( степень сжатия) (путь куда положить, если не указан, будет создан в корне)name_archive.zip /path/to/directory/ бэкап будет создан в разделе, где делаешь бэкап
+
+именно такие ковычки
+zip -9 /home/mamasup/backup/backup_`date +%Y.%m.%d_%H_%M`.zip -r /home/mamasup/public_html/* -x /home/mamasup/public_html/bitrix/backup/*
+
+zip -r -9 /home/admin/backup/backup_`date +%Y.%m.%d_%H_%M`.zip ./* -x './bitrix/backup/*' './upload/iblock/*' './bitrix/cache/*' './bitrix/managed_cache/*' './old_local/*' './bitrix/stack_cache/*' (копирование с исключениями)
+
+
+# zip -r -9 test-archive.zip /var/log/* /var/spool/* -x "/var/log/apt/*"
+-r - архивировать рекурсивно
+-9 - степень сжатия от 1 до 9. 0 - без сжатия.
+test-archive.zip - имя архива
+/var/log/* /var/spool/* - архивируемые директории через пробел
+-x "/var/log/apt/*" - опция, позволяющая исключить указанную папку или файл из архива
+-e - опция, позволяющая задать пароль на архив
+
+unzip backup_4_10_2017.zip -d ./
+
+просмотр zip архива
+unzip -l file.zip или less file.zip
+
+mv -перемещение файлов и папок
+ls -sh размер файлов в удобочитаемом виде
+
+mysqldump -uroot -proot sitemanager0 > dump_03_06_2017.sql  - дамп базы данных
+rm -r -f /home/bitrix/www/* - удалить содержимое раздела
+
+
+
+scp (-P если нужно указать порт) /home/djek/Загрузки/filename bitrix@185.20.225.171:/home/bitrix/www  -  копирование файлов на удаленный сервер
+Обратно тоже можно:
+scp user@8.8.8.8:/full/path/to/file /path/to/put/here
+
+ssh-copy-id bitrix@185.20.225.171  -  пробросить ssh ключ
+
+vi ~/.ssh/id_rsa.pub - просмотр публичного ключа
+
+find / -name ssl.conf  -  поиск файла по имени 
+
+grep -r ssl_certificate / - поиск по слову в файлах
+
+df -h - место на диске linux
+
+rm -rf /path/to/dir  — удалит директорию вместе с содержимым
+rm -rf /path/to/dir/*  — удалит только содержимое
+
+ssh-keygen - сгенерировать ключ
+
+анализ памяти 
+free
+cat /proc/meminfo
+
+swapoff -a
+swapon -a
+sysctl vm.swappiness=10 (устанавливаем значение swap, чем ниже оно, тем позже из оперы начнут отправляться туда данные)
+/etc/sysctl.conf - vm.swappiness = 10 
+
+du -sh /home/mamasup/public_html/bitrix/* - посмотреть дисковое пространство, занимаемое каждым разделом
+
+find /etc -type f -printf '%TY-%Tm-%Td %TT %p\n' | sort -r  поиск и сортировка в порядке модификации
+find ./ -type f -not -path './bitrix/cache/*' -not -path './upload/*' -not -path './bitrix/managed_cache/*' -not -path './local/php_interface/classes/pdf_generator/cache/*' -mtime -15 ! -mtime -5 -printf '%TY-%Tm-%Td %TT %p\n' | sort -r
+сложная выборка с исключениями (период от 15 до 5 дней назад)
+
+// удаление хоста из known_hosts
+ssh-keygen -R "$host"
+
+rsync -av -e 'ssh -p2230' (если нужен порт) --exclude='dir1/dir2/' (исключение разделов, относительный путь) ./from /to_full_path 
+
+
+/**** screen *****/
+screen -S screen_name //  создание скрина
+screen -r либо screen -ls // просмотреть список доступных screen`ов
+screen -r <id>
+<ctrl> + <d> либо напечатайте exit. // для выходы из скрина
+ctrl> + <a> - командный режим, а после <d> чтоб свернуть скрин
