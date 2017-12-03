@@ -2,8 +2,10 @@ CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'test123test!';  новый п�
 GRANT ALL PRIVILEGES ON `имя_базы`.* TO myuser@'%' IDENTIFIED BY 'пароль'; права
 GRANT [тип прав] ON [название базы данных].[название таблицы] TO ‘[имя пользователя]’@'localhost’;
 
+// бэкап базы данных
 /usr/bin/mysqldump -uLOGIN -hHOST -pPASS DBNAME > backup.sql
-mysqldump -uroot -p123456 testing  > /usr/home/backups/`date «+%d»`.sql
+mysqldump -uroot -p123456 testing  > /usr/home/backups/`date +%Y_%m_%d`.sql
+
 
 mysqldump -u mamasup -p mamasup | gzip > /home/mamasup/backup/mamasup_4_10_2017.sql.gz (mamasup -имя пользователя и имя базы mamasup)
 
@@ -16,9 +18,6 @@ mysql -u root -p basename - подключиться к базе
 
 крон задание для создания бд
 0 3 * * * mysqldump -uroot -hlocalhost -p123456 testing > backup.sql
-
-/usr/bin/mysqldump -uLOGIN -hHOST -pPASS DBNAME > backup.sql
-mysqldump -uroot -p123456 testing  > /usr/home/backups/`date «+%d»`.sql
 
 
 CREATE DATABASE mamasup;
