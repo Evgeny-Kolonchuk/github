@@ -8,3 +8,19 @@ include/socialservices/facebook.php
 там же идет обработка ответа от сервиса и происходит редирект через подключение js скрипта
 
 есть метод GetOnClickJs, который формирует ссылку для открытия попапа сервиса авторизации
+
+# Фасетные индексы #
+Чтобы отключить (удалить) фасетный индекс, выполните этот код в консоли PHP
+CModule::IncludeModule('iblock'); 
+Bitrix\Iblock\PropertyIndex\Manager::DeleteIndex($iblockId); 
+Bitrix\Iblock\PropertyIndex\Manager::markAsInvalid($iblockId);
+
+Пересоздать фасетный индекс через API
+Для элемента
+\Bitrix\Iblock\PropertyIndex\Manager::updateElementIndex(ID_инфоблока, ID_элемента);
+
+Для инфоблока
+$index = \Bitrix\Iblock\PropertyIndex\Manager::createIndexer(ID_инфоблока);
+$index->startIndex();
+$index->continueIndex(0); // создание без ограничения по времени
+$index->endIndex();
