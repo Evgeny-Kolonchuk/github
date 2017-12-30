@@ -1,4 +1,4 @@
-<?echo '<pre>'.print_r('djek',true).'</pre>'?>
+<?echo '<pre>'.print_r('djek',true).'</pre>';?>
 
 echo '<pre>'.print_r('djek',true).'</pre>';
 die();
@@ -8,13 +8,16 @@ die();
 <?endif;?>
 
 
-<?if($GLOBALS['USER']->GetID() == 6067):?>
+<?if($GLOBALS['USER']->isAdmin()):?>
     <?echo '<pre>'.print_r('djek',true).'</pre>'?>
 <?endif;?>
 
 if($GLOBALS['USER']->isAdmin()):
-echo '<pre>'.print_r('djek',true).'</pre>';
+	echo '<pre>'.print_r('djek',true).'</pre>';
 endif;
 
-$logFile = $_SERVER["DOCUMENT_ROOT"] . '/debug.txt';
-fwrite(fopen($logFile , 'a'),date('d.m.Y H:i:s') . ' ' . print_r($values, true) . "\r\n");
+$log_file = $_SERVER["DOCUMENT_ROOT"] . '/debug.txt';
+fwrite(fopen($log_file , 'a'), date('d.m.Y H:i:s') . ' ' . print_r($values, true) . "\r\n");
+
+$log_file = $_SERVER["DOCUMENT_ROOT"] . '/debug.txt';
+fwrite(fopen($log_file , 'a'), print_r($values, true) . "\r\n");
