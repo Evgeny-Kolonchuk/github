@@ -162,13 +162,13 @@ class CCatalogHelper{
 		return $quantity;
 	}
 
-	public static function get_images($ar_images = array()){
+	public static function get_images($ar_images = []){
 
 		if(!empty($ar_images)){
-			$dbl = \CFile::GetList(array(), array("@ID" => implode(",", $ar_images)));
-			$uploadDir = \COption::GetOptionString("main", "upload_dir", "upload");
-			while ($res = $dbl->fetch()){
-				$ar_images[$res["ID"]] = "/$uploadDir/" . $res["SUBDIR"] . "/" . $res["FILE_NAME"];
+			$db_files = \CFile::GetList([], [ '@ID' => implode(',', $ar_images) ]);
+			$upload_dir = \COption::GetOptionString('main', 'upload_dir', 'upload');
+			while ($res = $db_files->fetch()){
+				$ar_images[$res['ID']] = "/{$upload_dir}/" . $res['SUBDIR'] . '/' . $res['FILE_NAME'];
 			}
 		}
 
