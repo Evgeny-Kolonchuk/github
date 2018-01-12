@@ -111,3 +111,72 @@ $basket = \Bitrix\Sale\Basket::loadItemsForFUser(
 //Обёртка над ORM
 $basket = \Bitrix\Sale\Basket::getList($filter);
 
+
+// работа с заказом
+
+use Bitrix\Sale;
+/** int $orderId ID заказа */
+$order = Sale\Order::load($order_id);
+
+$order->getId(); // ID заказа
+$order->getSiteId(); // ID сайта
+$order->getDateInsert(); // объект Bitrix\Main\Type\DateTime
+$order->getPersonTypeId(); // ID типа покупателя
+$order->getUserId(); // ID пользователя
+
+$order->getPrice(); // Сумма заказа
+$order->getDiscountPrice(); // Размер скидки
+$order->getDeliveryPrice(); // Стоимость доставки
+$order->getSumPaid(); // Оплаченная сумма
+$order->getCurrency(); // Валюта заказа
+
+$order->isPaid(); // true, если оплачен
+$order->isAllowDelivery(); // true, если разрешена доставка
+$order->isShipped(); // true, если отправлен
+$order->isCanceled(); // true, если отменен
+
+$order->getField("ORDER_WEIGHT"); // Вес заказа
+$order->getField('PRICE'); // Сумма заказа
+// Изменение поля:
+$order->setField('USER_DESCRIPTION', 'Комментарий к заказу');
+$order->save();
+
+$paymentIds = $order->getPaymentSystemId(); // массив id способов оплат
+$deliveryIds = $order->getDeliverySystemId(); // массив id способов доставки
+
+$discountData = $order->getDiscount()->getApplyResult();
+
+/** Sale\Basket $basket */
+$order->setBasket($basket);
+
+$basket = $order->getBasket();
+
+//Bitrix\Sale\PropertyValue
+$propertyCollection = $order->getPropertyCollection();
+$ar = $propertyCollection->getArray(); // массив ['properties' => [..], 'groups' => [..] ];
+$ar = $propertyCollection->getGroups(); // массив групп
+$ar = $propertyCollection->getGroupProperties($groupId); // массив свойств, относящихся к группе
+
+$emailPropValue = $propertyCollection->getUserEmail();
+$namePropValue  = $propertyCollection->getPayerName();
+$locPropValue   = $propertyCollection->getDeliveryLocation();
+$taxLocPropValue = $propertyCollection->getTaxLocation();
+$profNamePropVal = $propertyCollection->getProfileName();
+$zipPropValue   = $propertyCollection->getDeliveryLocationZip();
+$phonePropValue = $propertyCollection->getPhone();
+$addrPropValue  = $propertyCollection->getAddress();
+
+$somePropValue = $propertyCollection->getItemByOrderPropertyId($orderPropertyId);
+$somePropValue->getValue(); // значение свойства
+$somePropValue->getViewHtml(); // представление значения в читаемом виде (напр. для местоположения - путь страна, регион, город)
+
+$arProp  = $somePropValue->getProperty(); // массив данных о самом свойстве
+$propId  = $somePropValue->getPropertyId(); // ID свойства
+$propName = $somePropValue->getName(); // Название
+$isRequired = $somePropValue->isRequired(); // true, если свойство обязательное
+$propPerson = $somePropValue->getPersonTypeId(); // Тип плательщика
+$propGroup  = $somePropValue->getGroupId(); // ID группы
+
+$somePropValue->setValue("value");
+$order->save(); 
+// можно $somePropValue->save(), но пересчета заказа не произойдёт
