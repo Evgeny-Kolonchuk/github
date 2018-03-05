@@ -1,0 +1,3 @@
+# определение и сбор инф по контрагентам происходит #
+bitrix/modules/sale/general/export.php
+метод ExportContragents 1654 стр
