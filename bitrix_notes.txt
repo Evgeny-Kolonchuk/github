@@ -2,12 +2,50 @@
 
 bitrix/modules/socialservices/classes/general/authmanager.php
 AuthorizeUser - метод проверяет есть ли в битриксе пользователь с авторизацией через соц сеть.
+класс CSocServAuth и его метод AuthorizeUser делает проверку был ли зарегистрирован такой поьзователь ранее по данным, которые вернула апи
+это id пользователя, который записывается в таблицу как XML_ID и EXTERNAL_AUTH_ID - это тип соц сети
+социальные сети можно переопределить хендлером, а наследоваться они должны от класса CSocServAuth;
+пример class CSocServVKontakteUpd extends CSocServAuth
+
+и расширить их можно повесившись на обработчик событий OnAuthServicesBuildList
+AddEventHandler('socialservices', 'OnAuthServicesBuildList', array('CSocServHandlers', 'GetDescription'));
+
+class CSocServHandlers{
+
+    public static function GetDescription(){
+        return array(
+            array(
+                'ID' => 'Instagram',
+                'CLASS' => 'CSocServInstagram',
+                'NAME' => 'Instagram',
+                'ICON' => ''
+            ),
+            array(
+                'ID' => 'FacebookAuth',
+                'CLASS' => 'CSocServFacebookUpd',
+                'NAME' => 'FacebookAuth',
+                'ICON' => 'facebook'
+            ),
+            array(
+                'ID' => 'VKontakteAuth',
+                'CLASS' => 'CSocServVKontakteUpd',
+                'NAME' => 'VKontakteAuth',
+                'ICON' => 'vkontakte'
+            ),
+        );
+    }
+}
+
+
 
 include/socialservices/facebook.php
 во время авторизации вызывается метод Authorize
 там же идет обработка ответа от сервиса и происходит редирект через подключение js скрипта
 
 есть метод GetOnClickJs, который формирует ссылку для открытия попапа сервиса авторизации
+
+
+
 
 # Фасетные индексы #
 Чтобы отключить (удалить) фасетный индекс, выполните этот код в консоли PHP
@@ -24,3 +62,21 @@ $index = \Bitrix\Iblock\PropertyIndex\Manager::createIndexer(ID_инфоблок
 $index->startIndex();
 $index->continueIndex(0); // создание без ограничения по времени
 $index->endIndex();
+
+во время построения поиска проверяются права
+bitrix/modules/search/classes/general/search.php
+метод CheckPermissions
+результат для неадмина
+((
+					EXISTS (
+						SELECT 1
+						FROM b_search_content_right scg
+						WHERE sc.ID = scg.SEARCH_CONTENT_ID
+						AND scg.GROUP_CODE = 'G2'
+					)))
+					AND (( (sct.searchable_content LIKE '%117200%') ))
+
+результат для админа 
+((1=1))
+					AND (( (sct.searchable_content LIKE '%117200%') ))
+

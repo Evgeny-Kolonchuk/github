@@ -1,6 +1,8 @@
 <?
 $APPLICATION->IncludeFile("/local/include/areas/development.php", array(), array("MODE" => "html", "NAME" => "Данные о разработчике", "TEMPLATE" => 'EMPTY',"SHOW_BORDER" => false));
 
+// подключение класса компонента
+\CBitrixComponent::includeComponentClass("webteam:search.line");
 
 
 $this->SetViewTarget('products_detail_text');
