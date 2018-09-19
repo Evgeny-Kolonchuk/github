@@ -174,5 +174,28 @@ class CCatalogHelper{
 
 		return $ar_images;
 	}
+
+
+    public static function get_images_cache() {
+
+        if (!empty($this->arResult['images'])) {
+            $cache_id = md5(serialize($this->arResult['images']));
+            $images = [];
+            $ob_cache = new \CPHPCache;
+            if($this->use_cache && $ob_cache->initCache(($this->cache_time * 30), $cache_id) ){
+                $images = $ob_cache->getVars();
+            }elseif($ob_cache->startDataCache()){
+                $dbl = \CFile::GetList([], ["@ID" => implode(",", $this->arResult['images'])]);
+                $upload_dir = \COption::GetOptionString("main", "upload_dir", "upload");
+                while ($res = $dbl->fetch()){
+                    $images[$res["ID"]] = "/$upload_dir/" . $res['SUBDIR'] . "/" . $res['FILE_NAME'];
+                }
+                $ob_cache->EndDataCache($images);
+            }
+
+        }
+        $this->arResult['images'] = $images;
+        return $this;
+    }
 	
 }
