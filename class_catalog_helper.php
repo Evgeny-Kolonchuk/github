@@ -177,10 +177,10 @@ class CCatalogHelper{
 
 
     public static function get_images_cache() {
-
+		
+		$images = [];
         if (!empty($this->arResult['images'])) {
-            $cache_id = md5(serialize($this->arResult['images']));
-            $images = [];
+            $cache_id = md5(serialize($this->arResult['images']));       
             $ob_cache = new \CPHPCache;
             if($this->use_cache && $ob_cache->initCache(($this->cache_time * 30), $cache_id) ){
                 $images = $ob_cache->getVars();
