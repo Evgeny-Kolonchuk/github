@@ -36,7 +36,7 @@ nbproject/
 Thumbs.db
 __MACOSX/
 
-
+/bitrix/activities/
 /bitrix/admin/
 /bitrix/wizards/
 /bitrix/backup/
@@ -45,7 +45,10 @@ __MACOSX/
 /bitrix/crontab/
 /bitrix/css/
 /bitrix/fonts/
+/bitrix/html_pages/
+/bitrix/opt/
 /bitrix/gadgets/
+/bitrix/services/
 /bitrix/image_uploader/
 /bitrix/images/
 /bitrix/js/
@@ -64,7 +67,21 @@ __MACOSX/
 /bitrix/tools/
 /bitrix/updates/
 /bitrix/wizard/
+/bitrix/otp/
 /bitrix/catalog_export/
+/bitrix/template/
+/bitrix/.settings.php.crm.orig
+/bitrix/activity_limit.php
+/bitrix/click.php
+/bitrix/redirect.php
+/bitrix/rk.php
+/bitrix/rss.php
+/bitrix/spread.php
+/bitrix/coupon_activation.php
+/bitrix/footer.php
+/bitrix/header.php
+/bitrix/index.php
+/bitrix/license_key.php
 /local/docs/
 
 
@@ -72,12 +89,17 @@ __MACOSX/
 /node_modules/
 /cache/
 /upload/
-/video/
+video
 /vendor/
 /test/
 /pic/
 /cgi-bin/
 /logs/
+/images/
+/migrate/
+/bxr_tmp/
+/desktop_app/
+/files/
 
 
 /.git*
@@ -85,11 +107,11 @@ __MACOSX/
 /yandex*.html
 
 
-
 /.git_old
 deploy.php
 urlrewrite.php
 
 test.php
+test*.php
 del.php
 delete.php
