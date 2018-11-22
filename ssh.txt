@@ -98,3 +98,13 @@ zip -r -9 /home/admin/backup/backup_`date +%Y.%m.%d_%H_%M`.zip ./. -x './bitrix/
 
 //логи крона лежат здесь, тейлом просматриваем количество строк с конца списка
 tail -20 /var/log/cron
+
+
+// проверка внешнего ip
+wget -qO- eth0.me
+wget -qO- ipinfo.io/ip
+wget -qO- ipecho.net/plain
+wget -qO- icanhazip.com
+wget -qO- ipecho.net
+wget -qO- ident.me
+wget -qO- myip.gelma.net
