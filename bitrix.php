@@ -61,7 +61,7 @@ function isUserPassword($oldPassword) {
 }
 
 // проверка функции mail
-echo '<pre>'.print_r((int)mail("kolonchuk@newsite.by", "My Subject", "Line 1\nLine 2\nLine 3") ,true).'</pre>';
+echo '<pre>'.print_r((int)mail("evgeny.kolonchuk@gmail.com", "My Subject", "Line 1\nLine 2\nLine 3") ,true).'</pre>';
 
 // запись в лог
 $file = $_SERVER["DOCUMENT_ROOT"]."/log.txt";
