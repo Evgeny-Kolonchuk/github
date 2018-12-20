@@ -180,3 +180,17 @@ $propGroup  = $somePropValue->getGroupId(); // ID группы
 $somePropValue->setValue("value");
 $order->save(); 
 // можно $somePropValue->save(), но пересчета заказа не произойдёт
+
+// Список локаций и фильтры по ним
+use \Bitrix\Sale\Location\LocationTable;
+
+$db = LocationTable::getList([
+                             'filter' => ['>CITY_ID'  => 0, 'SALE_LOCATION_LOCATION_NAME_LANGUAGE_ID' => LANGUAGE_ID, 'SALE_LOCATION_LOCATION_NAME_NAME' => 'Москва'],
+                             'select' => ['ID', 'CODE', 'DEPTH_LEVEL', 'PARENT_ID', 'REGION_ID', 'CITY_ID', 'NAME'],
+                             'order' => ['SALE_LOCATION_LOCATION_NAME_NAME' => 'asc']
+                             ]);
+
+
+while ($arr = $db->fetch()){
+    echo '<pre>'.print_r($arr,true).'</pre>';
+}
