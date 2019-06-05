@@ -57,3 +57,47 @@ var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,k
    vars[key] = value;
 });
 
+function get_cookie(name) {
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function set_cookie(name, value, options) {
+    options = options || {};
+
+    var expires = options.expires;
+    if (typeof(expires) == "number" && expires) {
+        var current_date = new Date();
+        current_date.setTime(current_date.getTime() + expires * 1000);
+        expires = options.expires = current_date;
+    }
+
+    if (expires && expires.toUTCString)
+    {
+        options.expires = expires.toUTCString();
+    }
+
+    value = encodeURIComponent(value);
+
+    var updated_cookie = name + "=" + value;
+
+    for (var property_name in options)
+    {
+        if (!options.hasOwnProperty(property_name))
+        {
+            continue;
+        }
+        updated_cookie += "; " + property_name;
+        var property_value = options[property_name];
+        if (property_value !== true) {
+            updated_cookie += "=" + property_value;
+        }
+    }
+
+    document.cookie = updated_cookie;
+
+    return true;
+}
+
