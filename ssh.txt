@@ -73,6 +73,8 @@ sysctl vm.swappiness=10 (устанавливаем значение swap, че�
 
 du -sh /home/mamasup/public_html/bitrix/* - посмотреть дисковое пространство, занимаемое каждым разделом
 
+du -sh /* | sort -rh - сортировка по размеру (в обратном порядке ключ -r)
+
 find /etc -type f -printf '%TY-%Tm-%Td %TT %p\n' | sort -r  поиск и сортировка в порядке модификации
 find ./ -type f -not -path './bitrix/cache/*' -not -path './upload/*' -not -path './bitrix/managed_cache/*' -not -path './local/php_interface/classes/pdf_generator/cache/*' -mtime -15 ! -mtime -5 -printf '%TY-%Tm-%Td %TT %p\n' | sort -r
 сложная выборка с исключениями (период от 15 до 5 дней назад)
