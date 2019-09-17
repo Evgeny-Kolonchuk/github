@@ -93,7 +93,7 @@ screen -r <id>
 ctrl> + <a> - командный режим, а после <d> чтоб свернуть скрин
 
 $ ln -s /путь/к/папке /путь/к/ссылке
-$ ln -s /путь/к/файлу /путь/к/ссылке
+$ ln -s <ИСТОЧНИК> <ИМЯ_ССЫЛКИ>
 
 рабочий вариант
 zip -r -9 /home/admin/backup/backup_`date +%Y.%m.%d_%H_%M`.zip ./. -x './bitrix/backup/*' './upload/iblock/*' './bitrix/cache/*' './bitrix/managed_cache/*' './old_local/*' './bitrix/stack_cache/*' './en/bitrix/backup/*' './en/bitrix/cache/*' './en/bitrix/managed_cache/*' './en/bitrix/stack_cache/*' './en/upload/iblock/*' './en/local/php_interface/classes/pdf_creator/cache/*' './local/php_interface/classes/pdf_creator/cache/*' './en/upload/resize_cache/*' './upload/resize_cache/*' './en/local/php_interface/classes/pdf_generator/cache/*' './local/php_interface/classes/pdf_generator/cache/*'
